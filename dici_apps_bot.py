@@ -24,6 +24,7 @@ Setup:
 
 import logging
 import os
+from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
@@ -36,7 +37,8 @@ from telegram.ext import (
 # KONFIGURASI — Token dibaca dari environment variable
 # Set di Railway: Settings → Variables → BOT_TOKEN
 # ──────────────────────────────────────────────
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "isi_token_kamu_di_sini")
+load_dotenv()
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
 # ──────────────────────────────────────────────
 # DATA PROFIL — Sesuaikan dengan data kamu
