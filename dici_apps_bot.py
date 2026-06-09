@@ -111,7 +111,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await update.message.reply_text(
         teks,
-        parse_mode="Markdown",
+        parse_mode="HTML",
         reply_markup=main_keyboard(),
     )
 
@@ -122,18 +122,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def profile(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keahlian_str = " • ".join(PROFIL["keahlian"])
     teks = (
-        f"👤 *Profil Saya*\n"
+        f"👤 <b>Profil Saya</b>\n"
         f"{'─' * 28}\n"
-        f"*Nama*    : {PROFIL['nama']}\n"
-        f"*Tagline* : {PROFIL['tagline']}\n"
-        f"*Lokasi*  : {PROFIL['lokasi']}\n\n"
-        f"🛠 *Keahlian*\n"
+        f"<b>Nama</b>    : {PROFIL['nama']}\n"
+        f"<b>Tagline</b> : {PROFIL['tagline']}\n"
+        f"<b>Lokasi</b>  : {PROFIL['lokasi']}\n\n"
+        f"🛠 <b>Keahlian</b>\n"
         f"{keahlian_str}\n\n"
-        f"🔗 *Link*\n"
+        f"🔗 <b>Link</b>\n"
         f"GitHub : {PROFIL['github']}\n"
         f"Email  : {PROFIL['email']}"
     )
-    await update.message.reply_text(teks, parse_mode="Markdown")
+    await update.message.reply_text(teks, parse_mode="HTML")
 
 
 # ──────────────────────────────────────────────
@@ -144,16 +144,16 @@ async def proyek(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Belum ada proyek yang ditambahkan.")
         return
 
-    teks = f"🗂 *Proyek yang Telah Selesai* ({len(PROYEK_LIST)} proyek)\n{'─' * 28}\n\n"
+    teks = f"🗂 <b>Proyek yang Telah Selesai</b> ({len(PROYEK_LIST)} proyek)\n{'─' * 28}\n\n"
     for i, p in enumerate(PROYEK_LIST, 1):
         teks += (
-            f"*{i}. {p['nama']}*  {p['status']}\n"
+            f"<b>{i}. {p['nama']}</b>  {p['status']}\n"
             f"📅 {p['tahun']}\n"
             f"{p['deskripsi']}\n"
-            f"⚙️ _{p['teknologi']}_\n\n"
+            f"⚙️ <i>{p['teknologi']}</i>\n\n"
         )
 
-    await update.message.reply_text(teks, parse_mode="Markdown")
+    await update.message.reply_text(teks, parse_mode="HTML")
 
 
 # ──────────────────────────────────────────────
@@ -161,14 +161,14 @@ async def proyek(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ──────────────────────────────────────────────
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     teks = (
-        "📌 *Daftar Perintah*\n"
-        "{'─' * 28}\n"
+        "📌 <b>Daftar Perintah</b>\n"
+        f"{'─' * 28}\n"
         "/start   — Menu utama\n"
         "/profile — Lihat profil saya\n"
         "/proyek  — Lihat daftar proyek\n"
         "/help    — Bantuan\n"
     )
-    await update.message.reply_text(teks, parse_mode="Markdown")
+    await update.message.reply_text(teks, parse_mode="HTML")
 
 
 # ──────────────────────────────────────────────
@@ -181,41 +181,41 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if query.data == "profil":
         keahlian_str = " • ".join(PROFIL["keahlian"])
         teks = (
-            f"👤 *Profil Saya*\n"
+            f"👤 <b>Profil Saya</b>\n"
             f"{'─' * 28}\n"
-            f"*Nama*    : {PROFIL['nama']}\n"
-            f"*Tagline* : {PROFIL['tagline']}\n"
-            f"*Lokasi*  : {PROFIL['lokasi']}\n\n"
-            f"🛠 *Keahlian*\n"
+            f"<b>Nama</b>    : {PROFIL['nama']}\n"
+            f"<b>Tagline</b> : {PROFIL['tagline']}\n"
+            f"<b>Lokasi</b>  : {PROFIL['lokasi']}\n\n"
+            f"🛠 <b>Keahlian</b>\n"
             f"{keahlian_str}\n\n"
-            f"🔗 *Link*\n"
+            f"🔗 <b>Link</b>\n"
             f"GitHub : {PROFIL['github']}\n"
             f"Email  : {PROFIL['email']}"
         )
-        await query.edit_message_text(teks, parse_mode="Markdown", reply_markup=main_keyboard())
+        await query.edit_message_text(teks, parse_mode="HTML", reply_markup=main_keyboard())
 
     elif query.data == "proyek":
         if not PROYEK_LIST:
             teks = "Belum ada proyek yang ditambahkan."
         else:
-            teks = f"🗂 *Proyek yang Telah Selesai* ({len(PROYEK_LIST)} proyek)\n{'─' * 28}\n\n"
+            teks = f"🗂 <b>Proyek yang Telah Selesai</b> ({len(PROYEK_LIST)} proyek)\n{'─' * 28}\n\n"
             for i, p in enumerate(PROYEK_LIST, 1):
                 teks += (
-                    f"*{i}. {p['nama']}*  {p['status']}\n"
+                    f"<b>{i}. {p['nama']}</b>  {p['status']}\n"
                     f"📅 {p['tahun']}\n"
                     f"{p['deskripsi']}\n"
-                    f"⚙️ _{p['teknologi']}_\n\n"
+                    f"⚙️ <i>{p['teknologi']}</i>\n\n"
                 )
-        await query.edit_message_text(teks, parse_mode="Markdown", reply_markup=main_keyboard())
+        await query.edit_message_text(teks, parse_mode="HTML", reply_markup=main_keyboard())
 
     elif query.data == "kontak":
         teks = (
-            f"📬 *Kontak*\n"
+            f"📬 <b>Kontak</b>\n"
             f"{'─' * 28}\n"
             f"Email  : {PROFIL['email']}\n"
             f"GitHub : {PROFIL['github']}"
         )
-        await query.edit_message_text(teks, parse_mode="Markdown", reply_markup=main_keyboard())
+        await query.edit_message_text(teks, parse_mode="HTML", reply_markup=main_keyboard())
 
 
 # ──────────────────────────────────────────────
